@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="rml.dao.MUserMapper">
+	<resultMap id="BaseResultMap" type="rml.model.User">
+		<id column="pid" property="pid" />
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="pwd" property="pwd" />
+		<result column="status" property="status" />
+		<result column="login_type" property="loginType" />
+		<result column="create_time" property="createTime" />
+		<result column="last_login_time" property="lastLoginTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="create_uid" property="createUid" />
+		<result column="remark" property="remark" />
+		<result column="update_uid" property="updateUid" />
+	</resultMap>
+
+
+	<insert id="insert" parameterType="rml.model.User">
+		insert into user (user_id, user_name,pwd,status,login_type,
+		create_time,last_login_time)
+		values (#{userId},#{userName},#{pwd},#{status},#{loginType},#{createTime},#{lastLoginTime})
+	</insert>
+
+</mapper>

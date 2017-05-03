@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="zhibing_mybatis:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="artnote_back.war">
+      <element id="artifact" artifact-name="zhibing_mybatis:war exploded" />
+    </root>
+  </artifact>
+</component>
