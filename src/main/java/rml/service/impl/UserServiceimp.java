@@ -69,8 +69,8 @@ public class UserServiceimp implements UserService {
      * @return
      */
     @Override
-    public  HttpResult<LoginResultModle> loginUser(UserRequest request) {
-        HttpResult<LoginResultModle>  httpResult = new HttpResult<LoginResultModle>();
+    public HttpResult<LoginResultModle> loginUser(UserRequest request) {
+        HttpResult<LoginResultModle> httpResult = new HttpResult<LoginResultModle>();
         LoginResultModle loginResultModle;
         //先查用户表得到用户ID
         String userId = userMapper.getUserIdByMobile(request.getMobile());
@@ -82,13 +82,20 @@ public class UserServiceimp implements UserService {
             loginResultModle = userMapper.getLoginResultModle(userId);
             loginResultModle.setUserId(userId);
             int i = userMapper.checkDevice(request);
-                httpResult.setData(loginResultModle);
-            if (i>=1){
+            httpResult.setData(loginResultModle);
+            if (i >= 1) {
                 httpResult.setState("登录成功");
-            }else{
+            } else {
                 //在新设备登录
                 //需要插入device号码
-                request.setRemark("第一批次用户");
+
+                boolean isNotFirstLogin = userMapper.isNotFirstLogin(userId);
+                if (isNotFirstLogin) {
+                    request.setRemark("其他设备");
+                } else {
+                    request.setRemark("第一次登陆的设备");
+                }
+
                 userMapper.insertDevice(request);
                 httpResult.setState("登录成功，这是你在新设备第一次登录");
             }

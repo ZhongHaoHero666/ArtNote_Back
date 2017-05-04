@@ -32,4 +32,7 @@ public interface UserMapper {
 
     //插入与帐号userid关联的新设备
     void insertDevice(UserRequest request);
+
+    //根据用户ID 查看是否是第一次登录
+    boolean  isNotFirstLogin(String userId);
 }

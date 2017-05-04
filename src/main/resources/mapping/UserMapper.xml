@@ -39,6 +39,12 @@
 	</select>
 
 
+    <select id="isNotFirstLogin" parameterType="string" resultType="boolean">
+		SELECT COUNT(1)  FROM equipment
+		WHERE userId = #{userId}
+	</select>
+
+
     <insert id="insertDevice" parameterType="rml.request.UserRequest">
 
 			INSERT INTO equipment (userId, equipmentId,remark)
