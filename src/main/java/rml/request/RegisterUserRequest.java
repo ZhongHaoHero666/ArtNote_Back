@@ -1,9 +1,9 @@
-package rml.model;
+package rml.request;
 
 /**
  * Created by BBLink on 2017/5/3.
  */
-public class RegisterUserModle {
+public class RegisterUserRequest {
     String userName;
     String realName;
     String email;

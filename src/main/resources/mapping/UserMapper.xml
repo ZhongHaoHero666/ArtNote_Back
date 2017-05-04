@@ -2,12 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="rml.dao.UserMapper">
 
+    <select id="checkRegisterUser" parameterType="string" resultType="int">
+		SELECT COUNT(1) FROM users
+		WHERE mobile = #{value}
+	</select>
 
-    <insert id="registerUser" parameterType="rml.model.RegisterUserModle">
-		insert into users (userName, realName,email,mobile,tel,
+    <insert id="registerUser" parameterType="rml.request.RegisterUserRequest">
+		INSERT INTO users (userName, realName,email,mobile,tel,
 		sex,adder,password,createTime,updateTime)
-		values (#{userName},#{realName},#{email},#{mobile},#{tel},#{sex},
+		VALUES (#{userName},#{realName},#{email},#{mobile},#{tel},#{sex},
 		#{adder},#{password},#{createTime},#{updateTime})
 	</insert>
+
+    <select id="checkLogin" parameterType="rml.request.UserRequest" resultType="int">
+
+		SELECT COUNT(1)  FROM users
+		WHERE userId = #{userId} AND password = #{password}
+
+	</select>
+
+    <select id="getUserIdByMobile" parameterType="String" resultType="String">
+		SELECT userId FROM users
+		WHERE mobile = #{value}
+	</select>
+
+
+    <select id="getLoginResultModle" parameterType="String" resultType="rml.model.LoginResultModle">
+		SELECT userId,realName,sex,mobile FROM users
+		WHERE userId = #{value}
+	</select>
+
+
+    <select id="checkDevice" parameterType="rml.request.UserRequest" resultType="int">
+		SELECT COUNT(1)  FROM equipment
+		WHERE userId = #{userId} AND equipmentId = #{IMeiId}
+	</select>
+
+
+    <insert id="insertDevice" parameterType="rml.request.UserRequest">
+
+			INSERT INTO equipment (userId, equipmentId,remark)
+		VALUES (#{userId},#{IMeiId},#{remark})
+
+	</insert>
+
 
 </mapper>

@@ -4,17 +4,47 @@ import java.io.Serializable;
 
 
 public class UserRequest implements Serializable {
+	private String remark;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5675547126499250212L;
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	private String userId;
 
 	private String mobile;
 
-	private String loginType;
+	private String IMeiId;
 
-	private String pwd;
+	private String password;
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getIMeiId() {
+		return IMeiId;
+	}
+
+	public void setIMeiId(String IMeiId) {
+		this.IMeiId = IMeiId;
+	}
 
 	public String getMobile() {
 		return mobile;
@@ -23,23 +53,4 @@ public class UserRequest implements Serializable {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
-
-	public String getLoginType() {
-		return loginType;
-	}
-
-	public void setLoginType(String loginType) {
-		this.loginType = loginType;
-	}
-
-	public String getPwd() {
-		return pwd;
-	}
-
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
-	
-	
-
 }

@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import rml.model.HttpResult;
-import rml.model.RegisterUserModle;
+import rml.model.LoginResultModle;
+import rml.request.RegisterUserRequest;
+import rml.request.UserRequest;
 import rml.service.UserService;
 
 /**
@@ -23,9 +25,19 @@ public class UserController {
 
     @RequestMapping("/register")
     @ResponseBody
-    public HttpResult registerUser(RegisterUserModle registerUserModle) {
+    public HttpResult registerUser(RegisterUserRequest registerUserRequest) {
         HttpResult httpResult;
-        httpResult = userService.registerUser(registerUserModle);
+        httpResult = userService.registerUser(registerUserRequest);
+
+        return httpResult;
+    }
+
+    @RequestMapping("/login")
+    @ResponseBody
+    public HttpResult loginUser(UserRequest request) {
+
+        HttpResult<LoginResultModle> httpResult = userService.loginUser(request);
+
 
         return httpResult;
     }
