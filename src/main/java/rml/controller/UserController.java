@@ -27,8 +27,6 @@ public class UserController {
         HttpResult httpResult;
         httpResult = userService.registerUser(registerUserModle);
 
-
         return httpResult;
-
     }
 }

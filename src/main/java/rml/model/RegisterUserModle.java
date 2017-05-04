@@ -14,11 +14,20 @@ public class RegisterUserModle {
     String password;
     String createTime;
     String updateTime;
+    String verificationCode;
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
 
     @Override
     public String toString() {
         return "RegisterUserModle{" +
-                ", userName='" + userName + '\'' +
+                "userName='" + userName + '\'' +
                 ", realName='" + realName + '\'' +
                 ", email='" + email + '\'' +
                 ", mobile='" + mobile + '\'' +
@@ -28,6 +37,7 @@ public class RegisterUserModle {
                 ", password='" + password + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", updateTime='" + updateTime + '\'' +
+                ", verificationCode='" + verificationCode + '\'' +
                 '}';
     }
 
