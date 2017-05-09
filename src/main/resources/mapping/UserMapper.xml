@@ -52,5 +52,10 @@
 
 	</insert>
 
+    <update id="updataUserIcon" parameterType="string">
+	UPDATE users SET icon = #{icon}
+		WHERE userId = #{userId}
+	</update>
+
 
 </mapper>

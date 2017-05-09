@@ -1,5 +1,6 @@
 package rml.dao;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import rml.model.LoginResultModle;
 import rml.request.RegisterUserRequest;
@@ -34,5 +35,7 @@ public interface UserMapper {
     void insertDevice(UserRequest request);
 
     //根据用户ID 查看是否是第一次登录
-    boolean  isNotFirstLogin(String userId);
+    boolean isNotFirstLogin(String userId);
+
+    boolean updataUserIcon(@Param("userId") String userId, @Param("icon") String icon);
 }

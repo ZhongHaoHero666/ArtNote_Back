@@ -1,5 +1,6 @@
 package rml.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import rml.model.HttpResult;
 import rml.model.LoginResultModle;
 import rml.request.RegisterUserRequest;
@@ -16,6 +17,9 @@ public interface UserService {
     HttpResult registerUser(RegisterUserRequest registerUserRequest);
 
     //登录
-    HttpResult<LoginResultModle> loginUser(UserRequest request);
+    HttpResult<LoginResultModle> loginUser(UserRequest request);//登录
+
+    //上传头像
+    HttpResult updataUserIcon(String userId, MultipartFile icon);
 
 }

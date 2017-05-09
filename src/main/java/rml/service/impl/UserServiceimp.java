@@ -2,12 +2,14 @@ package rml.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import rml.dao.UserMapper;
 import rml.model.HttpResult;
 import rml.model.LoginResultModle;
 import rml.request.RegisterUserRequest;
 import rml.request.UserRequest;
 import rml.service.UserService;
+import rml.util.Base64Util;
 
 /**
  * Created by BBLink on 2017/5/3.
@@ -105,6 +107,26 @@ public class UserServiceimp implements UserService {
             httpResult.setCode(-1);
 
         }
+        return httpResult;
+    }
+
+    @Override
+    public HttpResult updataUserIcon(String userId, MultipartFile icon) {
+
+        HttpResult httpResult = new HttpResult();
+//        icon.getBytes()
+       try {
+           String iconStr = Base64Util.getImageStr(icon);
+           userMapper.updataUserIcon(userId,iconStr);
+           httpResult.setCode(0);
+           httpResult.setState("更新头像成功");
+       }catch (Exception e){
+
+           httpResult.setCode(-1);
+           httpResult.setState(e.getMessage());
+       }
+
+
         return httpResult;
     }
 }
