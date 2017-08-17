@@ -12,6 +12,7 @@ import rml.model.HttpResult;
 import rml.model.LoginResultModle;
 import rml.model.TestBean;
 import rml.request.RegisterUserRequest;
+import rml.request.SafeQuestionRequest;
 import rml.request.UserRequest;
 import rml.service.UserService;
 import rml.util.CreateFileUtil;
@@ -81,4 +82,45 @@ public class UserController {
 //
 //        return "";
 //    }
+
+
+    @RequestMapping("setSafeQuestion")
+    @ResponseBody
+    public HttpResult setSafeQuestion(SafeQuestionRequest safeQuestionRequest) {
+        HttpResult httpResult;
+        httpResult = userService.setSafeQuestion(safeQuestionRequest);
+        return httpResult;
+    }
+
+    @RequestMapping("getSafeQuestion")
+    @ResponseBody
+    public HttpResult<SafeQuestionRequest> getSafeQuestionById(String  userId) {
+        HttpResult<SafeQuestionRequest> httpResult;
+       try {
+           httpResult = userService.getSafeQuestionById(userId);
+           if(null == httpResult){
+               httpResult.setState("你还暂未设置密保问题");
+           }else{
+               httpResult.setState("获取密保问题成功");
+           }
+           httpResult.setCode(200);
+       }catch (Exception e){
+           httpResult = new HttpResult<SafeQuestionRequest>();
+           httpResult.setState(e.getMessage());
+           httpResult.setCode(-1);
+       }
+        return httpResult;
+    }
+
+
+
+    @RequestMapping("setPassword")
+    @ResponseBody
+    public HttpResult setPassword(String userId, String password) {
+        HttpResult httpResult;
+        httpResult = userService.setPassword(userId,password);
+        return httpResult;
+    }
+
+
 }

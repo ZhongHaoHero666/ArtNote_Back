@@ -4,6 +4,7 @@ import org.springframework.web.multipart.MultipartFile;
 import rml.model.HttpResult;
 import rml.model.LoginResultModle;
 import rml.request.RegisterUserRequest;
+import rml.request.SafeQuestionRequest;
 import rml.request.UserRequest;
 
 /**
@@ -22,4 +23,12 @@ public interface UserService {
     //上传头像
     HttpResult updataUserIcon(String userId, MultipartFile icon);
 
+    //设置安全密保问题
+    HttpResult setSafeQuestion(SafeQuestionRequest safeQuestionRequest);
+
+    //获取密保问题
+    HttpResult<SafeQuestionRequest> getSafeQuestionById(String userId);
+
+    //重新设置密码
+    HttpResult setPassword(String userId, String password);
 }

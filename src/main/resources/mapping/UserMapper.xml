@@ -52,9 +52,32 @@
 
 	</insert>
 
+
+    <insert id="setSafeQuestion" parameterType="rml.request.SafeQuestionRequest">
+
+			INSERT INTO password (userId, userSafetyQuestion1,userSafetyAnswer1, userSafetyQuestion2,userSafetyAnswer2, userSafetyQuestion3,userSafetyAnswer3)
+		VALUES (#{userId},#{userSafetyQuestion1},#{userSafetyAnswer1},#{userSafetyQuestion2},#{userSafetyAnswer2},#{userSafetyQuestion3},#{userSafetyAnswer3})
+
+	</insert>
+
     <update id="updataUserIcon" parameterType="string">
 	UPDATE users SET icon = #{icon}
 		WHERE userId = #{userId}
+	</update>
+
+    <select id="searchSafeQuestionIsExit" parameterType="string" resultType="int">
+		SELECT count(1) FROM password
+		WHERE userId = #{userId}
+	</select>
+
+
+    <select id="getSafeQuestionById" parameterType="string" resultType="rml.request.SafeQuestionRequest">
+		SELECT * FROM password
+		WHERE userId = #{userId}
+	</select>
+
+    <update id="setPassword" parameterType="string">
+		UPDATE users SET password = #{password} WHERE userId = #{userId}
 	</update>
 
 

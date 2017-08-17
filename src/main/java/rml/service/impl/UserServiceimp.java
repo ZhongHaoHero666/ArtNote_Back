@@ -7,6 +7,7 @@ import rml.dao.UserMapper;
 import rml.model.HttpResult;
 import rml.model.LoginResultModle;
 import rml.request.RegisterUserRequest;
+import rml.request.SafeQuestionRequest;
 import rml.request.UserRequest;
 import rml.service.UserService;
 import rml.util.Base64Util;
@@ -81,6 +82,7 @@ public class UserServiceimp implements UserService {
         request.setUserId(userId);
         //拿用户ID得到password进行匹配
         if (userMapper.checkLogin(request) > 0) {//登录成功
+            httpResult.setCode(200);
             loginResultModle = userMapper.getLoginResultModle(userId);
             loginResultModle.setUserId(userId);
             int i = userMapper.checkDevice(request);
@@ -115,18 +117,62 @@ public class UserServiceimp implements UserService {
 
         HttpResult httpResult = new HttpResult();
 //        icon.getBytes()
-       try {
-           String iconStr = Base64Util.getImageStr(icon);
-           userMapper.updataUserIcon(userId,iconStr);
-           httpResult.setCode(0);
-           httpResult.setState("更新头像成功");
-       }catch (Exception e){
+        try {
+            String iconStr = Base64Util.getImageStr(icon);
+            userMapper.updataUserIcon(userId, iconStr);
+            httpResult.setCode(200);
+            httpResult.setState("更新头像成功");
+        } catch (Exception e) {
 
-           httpResult.setCode(-1);
-           httpResult.setState(e.getMessage());
-       }
+            httpResult.setCode(-1);
+            httpResult.setState(e.getMessage());
+        }
 
 
+        return httpResult;
+    }
+
+    @Override
+    public HttpResult setSafeQuestion(SafeQuestionRequest safeQuestionRequest) {
+        HttpResult httpResult = new HttpResult();
+        if (userMapper.searchSafeQuestionIsExit(safeQuestionRequest.getUserId()) == 0) {
+            if (userMapper.setSafeQuestion(safeQuestionRequest) != -1) {
+
+                httpResult.setCode(200);
+                httpResult.setState("设置安全问题成功");
+                return httpResult;
+            }
+
+            httpResult.setCode(-1);
+            httpResult.setState("设置安全问题失败");
+            return httpResult;
+        } else {
+
+            httpResult.setCode(-1);
+            httpResult.setState("安全问题已经设置");
+            return httpResult;
+        }
+
+    }
+
+    @Override
+    public HttpResult<SafeQuestionRequest> getSafeQuestionById(String userId) {
+        HttpResult<SafeQuestionRequest> httpResult = new HttpResult<SafeQuestionRequest>();
+        httpResult.setData(userMapper.getSafeQuestionById(userId));
+        return httpResult;
+    }
+
+    @Override
+    public HttpResult setPassword(String userId, String password) {
+        HttpResult httpResult = new HttpResult();
+        try {
+            userMapper.setPassword(userId, password);
+            httpResult.setCode(200);
+            httpResult.setState("更新密码成功");
+        } catch (Exception e) {
+            httpResult.setCode(-1);
+            httpResult.setState("更新密码失败");
+        }
         return httpResult;
     }
 }
