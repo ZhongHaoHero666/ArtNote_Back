@@ -1,3 +1,6 @@
+### 该项目已改动自[Github link](https://github.com/ZhibingXie)，现已废弃
+
+
 SpringMVC+Spring+MyBatis
 ========================
 
